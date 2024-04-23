@@ -1,0 +1,36 @@
+# Load packages
+
+```R
+library(ggplot2)
+library(tidyverse)
+
+```
+
+# Simulate data
+```R
+
+# Simulate data
+set.seed(123) # For reproducibility
+years <- seq(0, 30, length.out = 100)
+species_pred <- dnorm(years, mean = 2, sd = 10)
+# species_pred <- species_pred / max(species_pred) * 100 # Normalize and scale
+
+data <- data.frame(years, species_pred)
+
+# Plot
+pl <- ggplot(data, aes(x = years, y = species_pred)) +
+    geom_line() + # Plot as a line
+    # geom_point(alpha = 0.5) + # Add points with some transparency
+    labs(x = "Age of harvested forest (years)",
+        y = "Number of edge species") +
+    theme_minimal() +
+    scale_y_continuous(labels = NULL) + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    panel.background = element_blank())+
+    theme(axis.text=element_text(size=12),
+    axis.title=element_text(size=14))
+pl
+ggsave(filename = file.path("2. Output/Simulated plots", "number of edge species and time.png"), plot = pl, width = 5, height = 4)
+
+```
+
